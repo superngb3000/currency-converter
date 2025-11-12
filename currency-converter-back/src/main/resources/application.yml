@@ -11,3 +11,6 @@ spring:
 
 cb:
   url: ${CB_URL}
+  base-currency:
+    char-code: RUB
+    name: Российский рубль

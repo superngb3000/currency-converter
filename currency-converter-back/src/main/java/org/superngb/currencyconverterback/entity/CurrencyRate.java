@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -24,5 +26,5 @@ public class CurrencyRate {
     private Integer nominal;
 
     @Column(nullable = false)
-    private Double value;
+    private BigDecimal value;
 }

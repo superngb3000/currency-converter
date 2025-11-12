@@ -25,6 +25,6 @@ public class CurrencyRate {
     @Column(nullable = false)
     private Integer nominal;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 10, scale = 4)
     private BigDecimal value;
 }

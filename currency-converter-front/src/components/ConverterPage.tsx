@@ -81,8 +81,8 @@ const ConverterPage: React.FC<ConverterPageProps> = ({ onLogout }) => {
         setFirstAmount(res.toAmount.toFixed(2));
         setSecondAmount(res.fromAmount.toFixed(2));
       } else {
-        setSecondAmount(res.fromAmount.toFixed(2));
-        setFirstAmount(res.toAmount.toFixed(2));
+        setFirstAmount(res.fromAmount.toFixed(2));
+        setSecondAmount(res.toAmount.toFixed(2));
       }
     } catch (err: any) {
       if (err.status === 401) {

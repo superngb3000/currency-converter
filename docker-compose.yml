@@ -1,0 +1,60 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:15
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - currency-db-data:/var/lib/postgresql/data
+    networks:
+      - currency-net
+
+  backend:
+    build:
+      context: ./currency-converter-back
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DB_USERNAME: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      APP_FRONTEND_URL: ${FRONTEND_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXP_MINUTES: ${JWT_EXPIRATION_MINUTES}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+    ports:
+      - "${SERVER_PORT}:8080"
+    networks:
+      - currency-net
+
+  frontend:
+    build:
+      context: ./currency-converter-front
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    env_file:
+      - .env
+    environment:
+      VITE_API_BASE: ${VITE_API_BASE}
+    ports:
+      - "${FRONTEND_PORT}:80"
+    networks:
+      - currency-net
+
+volumes:
+  currency-db-data:
+
+networks:
+  currency-net:
+    driver: bridge

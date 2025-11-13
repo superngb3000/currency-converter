@@ -14,3 +14,14 @@ cb:
   base-currency:
     char-code: RUB
     name: Российский рубль
+
+security:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration_minutes: ${JWT_EXPIRATION_MINUTES}
+  admin:
+    username: ${ADMIN_USERNAME}
+    password: ${ADMIN_PASSWORD}
+
+server:
+  port: ${SERVER_PORT}
